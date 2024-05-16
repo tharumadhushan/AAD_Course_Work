@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:63342")
-@PreAuthorize("hasAuthority('ROLE ADMIN')")
+//@PreAuthorize("hasAuthority('ROLE ADMIN')")
 public class Customer {
 
     private final CustomerService customerService;

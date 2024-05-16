@@ -22,7 +22,7 @@ public class InventoryIMPL implements InventoryService {
 
     @Override
     public InventoryDTO saveInventory(InventoryDTO inventory) {
-        inventory.setItem_code(UUID.randomUUID().toString());
+//        inventory.setItem_code(UUID.randomUUID().toString());
         return mapping.toInventoryDTO(inventoryDAO.save(mapping.toIventoryEntity(inventory)));
     }
 
