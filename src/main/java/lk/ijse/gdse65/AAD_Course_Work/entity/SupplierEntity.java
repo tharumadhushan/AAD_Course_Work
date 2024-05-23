@@ -27,4 +27,7 @@ public class SupplierEntity implements SuperEntity {
     private String contact_no_2;
     private String email;
 
+//    @ManyToOne(cascade = CascadeType.DETACH)
+//    @JoinColumn(name = "item_code")
+//    private InventoryEntity inventory;
 }

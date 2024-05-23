@@ -1,6 +1,7 @@
 package lk.ijse.gdse65.AAD_Course_Work.entity;
 
 import jakarta.persistence.*;
+import lk.ijse.gdse65.AAD_Course_Work.controller.Sale;
 import lk.ijse.gdse65.AAD_Course_Work.entity.num.Gender;
 import lk.ijse.gdse65.AAD_Course_Work.entity.num.Level;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +29,7 @@ public class CustomerEntity implements SuperEntity{
     private int total_points;
     private Date dob;
     private String address;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<SaleEntity> sales = new ArrayList<>();
 }

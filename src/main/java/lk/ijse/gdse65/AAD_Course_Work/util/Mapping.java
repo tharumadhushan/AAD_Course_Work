@@ -2,11 +2,15 @@ package lk.ijse.gdse65.AAD_Course_Work.util;
 
 import lk.ijse.gdse65.AAD_Course_Work.dto.*;
 import lk.ijse.gdse65.AAD_Course_Work.entity.*;
+import lk.ijse.gdse65.AAD_Course_Work.repo.CustomerDAO;
+import lk.ijse.gdse65.AAD_Course_Work.repo.InventoryDAO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -70,15 +74,27 @@ public class Mapping {
     }
 
     //****************** sale ******************
-    public SaleDTO toSaleDTO(SaleEntity sale){
-        return mapper.map(sale,SaleDTO.class);
+    public SaleDTO toSaleDTO(SaleEntity saleEntity) {
+        return  mapper.map(saleEntity, SaleDTO.class);
     }
-    public SaleEntity toSaleEntity(SaleDTO saleDTO){
-        return mapper.map(saleDTO,SaleEntity.class);
+    public SaleEntity toSaleEntity(SaleDTO saleDTO) {
+        return  mapper.map(saleDTO, SaleEntity.class);
     }
-    public List<SaleDTO>toSaleDTOList(List<SaleEntity>sale){
-        return mapper.map(sale,List.class);
+    public List<SaleDTO> toSaleDTOList(List<SaleEntity> saleEntities) {
+        return saleEntities.stream()
+                .map(saleEntity -> mapper.map(saleEntity, SaleDTO.class))
+                .collect(Collectors.toList());
     }
+
+    public SaleInventoryDTO toSaleInventoryDetaisDTO(SaleInventoryDetails saleInventoryDetails) {
+        return  mapper.map(saleInventoryDetails, SaleInventoryDTO.class);
+    }
+    public SaleInventoryDetails toSaleInventoryDetaisEntity(SaleInventoryDTO saleInventoryDTO) {
+        return  mapper.map(saleInventoryDTO, SaleInventoryDetails.class);
+    }
+
+
+
 
     //****************** Refund ******************
     public RefundDTO toRefundDTO (RefundEntity refund){

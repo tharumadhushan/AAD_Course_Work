@@ -30,6 +30,7 @@ public class UserEntity implements UserDetails,SuperEntity{
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
