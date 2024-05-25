@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerDAO extends JpaRepository<CustomerEntity, String> {
-//    Optional<CustomerEntity> findByCustomer_id(String customerCode);
 }
