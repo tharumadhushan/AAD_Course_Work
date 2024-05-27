@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -51,6 +52,8 @@ public class CustomerIMPL implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
-        return mapping.toCustomerDTOList(customerDAO.findAll());
+        return customerDAO.findAll().stream()
+                .map(mapping::toCustomerDTO)
+                .collect(Collectors.toList());
     }
 }
