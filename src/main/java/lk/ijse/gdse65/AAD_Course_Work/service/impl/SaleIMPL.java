@@ -72,33 +72,6 @@ public class  SaleIMPL implements SaleService {
     public void deleteSale(String orderNo) {
 
     }
-
-
-//    @Override
-//    public List<SaleDTO> getAllSales() {
-//        List<SaleEntity> sales = saleDAO.findAll();
-//        return mapping.toEntity(sales);
-//    }
-//
-//    @Override
-//    public SaleDTO getSaleById(String orderNo) {
-//        SaleEntity sale = saleDAO.findById(orderNo).orElse(null);
-//        return mapping.toEntity(sale);
-//    }
-//
-//    @Override
-//    public SaleDTO saveSale(SaleDTO saleDTO) {
-//        if (saleDTO.getOrder_no() == null || saleDTO.getOrder_no().isEmpty()) {
-//            saleDTO.setOrder_no(UUID.randomUUID().toString());
-//        }
-//        SaleEntity sale = mapping.toEntity(saleDTO);
-//        sale = saleDAO.save(sale);
-//        return mapping.toEntity(sale);
-//    }
-//    @Override
-//    public void saveSale(SaleDTO sale) {
-//        SaleEntity saleEntity = mapping.toSaleEntity(
-//    }
 }
 
 

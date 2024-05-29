@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +16,7 @@ import java.util.Date;
 @Table(name = "refund")
 public class RefundEntity implements SuperEntity{
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String refundId;
     private String description;
     private Date refundDate;
@@ -23,11 +26,7 @@ public class RefundEntity implements SuperEntity{
     private EmployeeEntity employee;
 
     @OneToOne
-    @JoinColumn(name = "sale_order_no", referencedColumnName = "order_no")
+    @JoinColumn(name = "orderNo", referencedColumnName = "order_no")
     private SaleEntity sale;
 
-    // Uncomment and adjust if RefundEntity is supposed to reference InventoryEntity
-    // @ManyToOne
-    // @JoinColumn(name = "item_code", referencedColumnName = "item_code")
-    // private InventoryEntity inventory;
 }

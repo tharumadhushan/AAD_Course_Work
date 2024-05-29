@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface InventoryDAO extends JpaRepository<InventoryEntity ,String> {
-//    Optional<InventoryEntity> findByItem_code(String item);
+    Optional<InventoryEntity> findById(String item);
 }

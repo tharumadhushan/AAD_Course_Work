@@ -1,6 +1,7 @@
 package lk.ijse.gdse65.AAD_Course_Work.service.impl;
 
 import jakarta.transaction.Transactional;
+import lk.ijse.gdse65.AAD_Course_Work.Exception.NotFoundException;
 import lk.ijse.gdse65.AAD_Course_Work.dto.InventoryDTO;
 import lk.ijse.gdse65.AAD_Course_Work.entity.InventoryEntity;
 import lk.ijse.gdse65.AAD_Course_Work.repo.InventoryDAO;
@@ -50,5 +51,11 @@ public class InventoryIMPL implements InventoryService {
     @Override
     public List<InventoryDTO> getAllInventory() {
         return mapping.toInventoryDTOList(inventoryDAO.findAll());
+    }
+
+    public void updateInventoryQuantity(String itemId, int quantity) throws NotFoundException {
+        InventoryEntity item = inventoryDAO.findById(itemId).orElseThrow(() -> new NotFoundException("Item not found"));
+        item.setItem_qty(item.getItem_qty() + quantity);
+        inventoryDAO.save(item);
     }
 }
