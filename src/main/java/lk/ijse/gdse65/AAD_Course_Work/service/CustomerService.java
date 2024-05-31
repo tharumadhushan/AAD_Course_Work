@@ -10,4 +10,6 @@ public interface CustomerService {
     void deleteCustomer(String id);
     void updateCustomer(String id,CustomerDTO Customer);
     List<CustomerDTO> getAllCustomers();
+    long count();
+
 }

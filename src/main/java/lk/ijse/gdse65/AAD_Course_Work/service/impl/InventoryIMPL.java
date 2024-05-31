@@ -48,14 +48,47 @@ public class InventoryIMPL implements InventoryService {
 
     }
 
-    @Override
-    public List<InventoryDTO> getAllInventory() {
-        return mapping.toInventoryDTOList(inventoryDAO.findAll());
-    }
 
     public void updateInventoryQuantity(String itemId, int quantity) throws NotFoundException {
         InventoryEntity item = inventoryDAO.findById(itemId).orElseThrow(() -> new NotFoundException("Item not found"));
         item.setItem_qty(item.getItem_qty() + quantity);
         inventoryDAO.save(item);
+    }
+
+    @Override
+    public List<InventoryDTO> getAllInventory() {
+
+        return mapping.toInventoryDTOList(inventoryDAO.findAll());
+    }
+
+    @Override
+    public long count() {
+        return inventoryDAO.count();
+    }
+
+    @Override
+    public double calculateTotalProfit() {
+        return inventoryDAO.findAll().stream()
+                .mapToDouble(InventoryEntity::getExpected_profit)
+                .sum();
+    }
+
+    @Override
+    public Double getTotalSales() {
+        return inventoryDAO.findTotalSales();
+    }
+
+    @Override
+    public Optional<String> getMostSoldItemName() {
+        return inventoryDAO.findTopSoldItem().stream()
+                .findFirst()
+                .map(InventoryEntity::getItem_desc);
+    }
+
+    @Override
+    public Optional<Integer> getMostSoldItemQty() {
+        return inventoryDAO.findTopSoldItem().stream()
+                .findFirst()
+                .map(InventoryEntity::getItem_qty);
     }
 }

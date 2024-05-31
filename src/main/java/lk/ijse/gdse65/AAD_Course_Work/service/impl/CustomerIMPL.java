@@ -43,11 +43,15 @@ public class CustomerIMPL implements CustomerService {
         Optional<CustomerEntity> tmpCustomer = customerDAO.findById(id);
         tmpCustomer.get().setCustomer_name(customer.getCustomer_name());
         tmpCustomer.get().setGender(customer.getGender());
-        tmpCustomer.get().setJoin_date (customer.getJoin_date());
-        tmpCustomer.get().setLevel (customer.getLevel());
-        tmpCustomer.get().setTotal_points (customer.getTotal_points());
-        tmpCustomer.get().setDob (customer.getDob());
-        tmpCustomer.get().setAddress (customer.getAddress());
+        tmpCustomer.get().setJoin_date(customer.getJoin_date());
+        tmpCustomer.get().setLevel(customer.getLevel());
+        tmpCustomer.get().setTotal_points(customer.getTotal_points());
+        tmpCustomer.get().setDob(customer.getDob());
+        tmpCustomer.get().setAddress1(customer.getAddress1());
+        tmpCustomer.get().setAddress2(customer.getAddress2());
+        tmpCustomer.get().setAddress3(customer.getAddress3());
+        tmpCustomer.get().setAddress4(customer.getAddress4());
+        tmpCustomer.get().setAddress5(customer.getAddress5());
     }
 
     @Override
@@ -55,5 +59,10 @@ public class CustomerIMPL implements CustomerService {
         return customerDAO.findAll().stream()
                 .map(mapping::toCustomerDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return customerDAO.count();
     }
 }

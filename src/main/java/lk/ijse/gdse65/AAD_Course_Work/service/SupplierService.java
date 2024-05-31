@@ -12,4 +12,6 @@ public interface SupplierService {
     SupplierDTO getSelectedSupplier(String id);
     void deleteSupplier(String id);
     void updateSupplier(String id, SupplierDTO supplierDTO);
+
+    long count();
 }

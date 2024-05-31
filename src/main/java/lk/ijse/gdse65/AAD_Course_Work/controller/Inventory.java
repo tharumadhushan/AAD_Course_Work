@@ -7,11 +7,14 @@ import lk.ijse.gdse65.AAD_Course_Work.util.UtilMatters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/inventory")
@@ -20,6 +23,32 @@ import java.util.List;
 
 public class Inventory {
     private final InventoryService inventoryService;
+
+    @GetMapping("/most-sold-item-qty")
+    public Optional<Integer> getMostSoldItemQty() {
+        return inventoryService.getMostSoldItemQty();
+    }
+
+    @GetMapping("/most-sold-item-name")
+    public Optional<String> getMostSoldItemName() {
+        return inventoryService.getMostSoldItemName();
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> countInventory() {
+        long totalInventory = inventoryService.count();
+        return ResponseEntity.ok(totalInventory);
+    }
+
+    @GetMapping("/total-sales")
+    public Double getTotalSales() {
+        return inventoryService.getTotalSales();
+    }
+
+    @GetMapping("/totalProfit")
+    public double getTotalProfit() {
+        return inventoryService.calculateTotalProfit();
+    }
 
     @GetMapping("/health")
     public String healthTest(){
@@ -65,6 +94,7 @@ public class Inventory {
         return inventoryService.saveInventory(inventoryDTO);
     }
 
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public InventoryDTO updateInventory(
