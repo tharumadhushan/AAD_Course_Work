@@ -33,7 +33,7 @@ public class  SaleIMPL implements SaleService {
     @Override
     public void createSale(SaleDTO saleDTO) {
         Optional<CustomerEntity> customer = customerDAO.findById(saleDTO.getCustomer_code());
-        Optional<EmployeeEntity> employee = employeeDAO.findByEmployeeId(saleDTO.getEmployeeId());
+        Optional<EmployeeEntity> employee = employeeDAO.findById(saleDTO.getEmployeeId());
         SaleEntity saleEntity = mapping.toSaleEntity(saleDTO);
         saleEntity.setCustomer(customer.get());
         saleEntity.setCashier(employee.get());

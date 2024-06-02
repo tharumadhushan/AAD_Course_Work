@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +63,8 @@ public class Inventory {
             @Valid @RequestPart("item_code") String item_code,
             @RequestPart("item_desc") String item_desc,
             @RequestPart("item_qty") String item_qty,
-            @RequestPart("item_pic") String item_pic,
+//            @RequestPart("item_pic") String item_pic,
+            @RequestPart("item_pic") MultipartFile item_pic,
             @RequestPart("category") String category,
             @RequestPart("size") String size,
             @RequestPart("unit_price_sale") String unit_price_sale,
@@ -76,7 +79,14 @@ public class Inventory {
                     errors.getFieldErrors().get(0).getDefaultMessage());
         }
 
-        String base64ProPic = UtilMatters.convertBase64(item_pic);
+        String base64ProPic;
+        try {
+            base64ProPic = UtilMatters.convertBase64(String.valueOf(item_pic.getBytes()));
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error processing file upload", e);
+        }
+
+//        String base64ProPic = UtilMatters.convertBase64(item_pic);
 
         InventoryDTO inventoryDTO = new InventoryDTO();
         inventoryDTO.setItem_code(item_code);
@@ -101,7 +111,8 @@ public class Inventory {
             @Valid @RequestPart("item_code") String item_code,
             @RequestPart("item_desc") String item_desc,
             @RequestPart("item_qty") String item_qty,
-            @RequestPart("item_pic") String item_pic,
+//            @RequestPart("item_pic") String item_pic,
+            @RequestPart("item_pic") MultipartFile item_pic,
             @RequestPart("category") String category,
             @RequestPart("size") String size,
             @RequestPart("unit_price_sale") String unit_price_sale,
@@ -109,14 +120,20 @@ public class Inventory {
             @RequestPart("expected_profit") String expected_profit,
             @RequestPart("profit_margin") String profit_margin,
             @RequestPart("status") String status,
-            Errors errors) {
+            Errors errors)
 
-        if (errors.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    errors.getFieldErrors().get(0).getDefaultMessage());
-        }
+        {
+            if (errors.hasErrors()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        errors.getFieldErrors().get(0).getDefaultMessage());
+            }
 
-        String base64ProPic = UtilMatters.convertBase64(item_pic);
+            String base64ProPic;
+            try {
+                base64ProPic = UtilMatters.convertBase64(String.valueOf(item_pic.getBytes()));
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error processing file upload", e);
+            }
 
         InventoryDTO inventoryDTO = new InventoryDTO();
         inventoryDTO.setItem_code(item_code);

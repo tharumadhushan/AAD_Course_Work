@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeDAO extends JpaRepository<EmployeeEntity,String> {
-    Optional<EmployeeEntity> findByEmployeeId(String employee);
+    Optional<EmployeeEntity> findById(String employee);
 }

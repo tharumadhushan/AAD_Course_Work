@@ -1,10 +1,14 @@
 package lk.ijse.gdse65.AAD_Course_Work.dto;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lk.ijse.gdse65.AAD_Course_Work.entity.num.Gender;
 import lk.ijse.gdse65.AAD_Course_Work.entity.num.Role;
 import lombok.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 @AllArgsConstructor
