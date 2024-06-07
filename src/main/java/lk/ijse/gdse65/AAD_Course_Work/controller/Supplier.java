@@ -29,14 +29,18 @@ public class Supplier{
     public String healthCheck() {
         return "suppliers OK";
     }
+
     @GetMapping
     public List<SupplierDTO> getAllSuppliers() {
         return supplierService.getAllSuppliers();
     }
+
     @PostMapping
     public SupplierDTO save(@RequestBody SupplierDTO supplierDTO){
         return supplierService.saveSupplier(supplierDTO);
     }
+
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @PatchMapping
     public void update(@RequestBody SupplierDTO supplierDTO) throws NotFoundException {
         supplierService.updateSupplier(supplierDTO.getSupplier_id(),supplierDTO);

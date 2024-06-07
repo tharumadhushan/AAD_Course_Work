@@ -171,6 +171,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -256,12 +257,14 @@ public class Employee {  // Renamed class to EmployeeController
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @DeleteMapping("/{employeeId}")
     public void deleteEmployee(@PathVariable String employeeId) throws ChangeSetPersister.NotFoundException {
         employeeService.deleteEmployee(employeeId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void updateEmployee(@Valid
                                @RequestPart("employeeName") String employeeName,

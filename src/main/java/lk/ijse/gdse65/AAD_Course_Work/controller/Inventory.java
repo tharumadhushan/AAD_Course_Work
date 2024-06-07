@@ -26,11 +26,13 @@ import java.util.Optional;
 public class Inventory {
     private final InventoryService inventoryService;
 
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @GetMapping("/most-sold-item-qty")
     public Optional<Integer> getMostSoldItemQty() {
         return inventoryService.getMostSoldItemQty();
     }
 
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @GetMapping("/most-sold-item-name")
     public Optional<String> getMostSoldItemName() {
         return inventoryService.getMostSoldItemName();
@@ -42,11 +44,13 @@ public class Inventory {
         return ResponseEntity.ok(totalInventory);
     }
 
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @GetMapping("/total-sales")
     public Double getTotalSales() {
         return inventoryService.getTotalSales();
     }
 
+    @PreAuthorize("hasAuthority('ROLE ADMIN')")
     @GetMapping("/totalProfit")
     public double getTotalProfit() {
         return inventoryService.calculateTotalProfit();
